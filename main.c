@@ -163,58 +163,26 @@ int aoc2_1(input2Struct input2) {
     char **inputStrings = input2.inputStrings;
     int length = input2.length;
     int safeReports = 0;
-
     char *delimiter = " ";
     for (int row = 0; row<length; row++) {
         int col = 0;
-        int prevNum = -1;
-        int isSafe = 1;
-        int isDecreasing = 0;
-        int isIncreasing = 0;
         char *fullString = copyString(inputStrings[row], 255);
         char *eachString = strtok(fullString, delimiter);
-        
-        
-        // int *eachArr;
-        // eachArr = (int *)malloc(100 * sizeof(int)); 
-        // char *fullStringCopy = copyString(inputStrings[row], 255);
-        // eachString = strtok(fullStringCopy, delimiter);
-        // // int col = 0;
-        // while (eachString != NULL) {
-        //     int number = atoi(eachString);
-        //     eachArr[col] = number;
-        //     col++;
-        //     eachString = strtok(NULL, delimiter);
-        // }
-        // // printArray(eachArr, col);
-        // isSafe = isSafeList(eachArr, col);
-
+        int *eachArr;
+        eachArr = (int *)malloc(100 * sizeof(int));
 
         while (eachString != NULL) {
             int number = atoi(eachString);
-            if (col != 0) {
-                int difference = number - prevNum;
-                if (difference > 0 && isDecreasing || difference < 0 && isIncreasing || difference == 0 || abs(difference) > 3) {
-                    isSafe = 0;
-                    break;
-                }
-
-                if (difference < 0) {
-                    isDecreasing = 1;
-                } else {
-                    isIncreasing = 1;
-                }
-                
-            }
-            prevNum = number;
-            eachString = strtok(NULL, delimiter);
+            eachArr[col] = number;
             col++;
+            eachString = strtok(NULL, delimiter);
         }
+
+        int isSafe = isSafeList(eachArr, col);
         if (isSafe) {
             safeReports++;
         }
     }
-
     return safeReports;
 }
 
@@ -222,50 +190,26 @@ int aoc2_2(input2Struct input2) {
     char **inputStrings = input2.inputStrings;
     int length = input2.length;
     int safeReports = 0;
-
     char *delimiter = " ";
     for (int row = 0; row<length; row++) {
-        int isSafe = 1;
-        char *fullString = copyString(inputStrings[row], 255);
-        
-        char *eachString = strtok(fullString, delimiter);
-        int arrSize = 0;
-        while (eachString != NULL) {
-            arrSize++;
-            eachString = strtok(NULL, delimiter);
-        }
-        
-        int *eachArr;
-        eachArr = (int *)malloc(arrSize * sizeof(int)); 
-        char *fullStringCopy = copyString(inputStrings[row], 255);
-        eachString = strtok(fullStringCopy, delimiter);
         int col = 0;
+        char *fullString = copyString(inputStrings[row], 255);
+        char *eachString = strtok(fullString, delimiter);
+        int *eachArr;
+        eachArr = (int *)malloc(100 * sizeof(int));
+
         while (eachString != NULL) {
             int number = atoi(eachString);
             eachArr[col] = number;
             col++;
             eachString = strtok(NULL, delimiter);
         }
-        
-        int isOriginalValid = isSafeList(eachArr, col);
-        int **combinationList = makeRemove1List(eachArr, col);
-        int existsValidCombination = isSafeDamperList(combinationList, col);
-        
-        if (isOriginalValid) {
-            // printArray(eachArr, col);
-        } else if (existsValidCombination) {
-            // printf("Some combination\n");
-            // printArray(eachArr, col);
-            // printf("%%%%%%%%%%");
-        }
-        isSafe = isOriginalValid | existsValidCombination;
-        
 
-        if (isSafe) {
-            // printf("%d: %d, %s", row+1, hasSkipped, inputStrings[row]);
-                safeReports++;
-            }
+        int isSafeDamper = isSafeDamperList(eachArr, col);
+        if (isSafeDamper) {
+            safeReports++;
         }
+    }
     return safeReports;
 }
 

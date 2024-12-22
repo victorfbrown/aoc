@@ -7,7 +7,7 @@ int compare(const void* a, const void* b);
 int abs(int val);
 char* copyString(char *toCopy, int length);
 int **makeRemove1List(int *list, int length);
-int isSafeDamperList (int **list, int length);
+int isSafeDamperList (int *list, int length);
 int isSafeList(int *list, int length);
 void printArray(int *arr, int length);
 

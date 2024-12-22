@@ -63,41 +63,37 @@ int **makeRemove1List(int *list, int length) {
 }
 
 int isSafeList(int *list, int length) {
-    int isSafe = 0;
+    int isSafe = 1;
     int isDecreasing = 0;
     int isIncreasing = 0;
-    for (int j = 0; j<length; j++) {
-        if (j == 0) {
-            continue;
+    int prevNum = -1;
+    for (int col = 0; col < length; col ++) {
+        int number = list[col];
+        if (col != 0) {
+            int difference = number - prevNum;
+            if (difference > 0 && isDecreasing || difference < 0 && isIncreasing || difference == 0 || abs(difference) > 3) {
+                isSafe = 0;
+                break;
+            }
+            if (difference < 0) {
+                isDecreasing = 1;
+            } else {
+                isIncreasing = 1;
+            }
         }
-        int difference = list[j] - list[j-1];
-        if (difference > 0 && isDecreasing || difference < 0 && isIncreasing || difference == 0 || abs(difference) > 3) {
-            break;
-        }
-
-        if (difference > 0) {
-            isIncreasing = 1;
-        } else if (difference < 0) {
-            isDecreasing = 0;
-        }
-
-
-        if (j == length-1) {
-            isSafe = 1;
-        }
+        prevNum = number;
     }
     return isSafe;
 }
 
-int isSafeDamperList (int **list, int length) {
-    int isSafe = 0;
+int isSafeDamperList (int *list, int length) {
+    int **damperList = makeRemove1List(list, length);
     for (int i = 0; i<length; i++) {
         int isDecreasing = 0;
         int isIncreasing = 0;
-        int *eachList = list[i];
+        int *eachList = damperList[i];
         int listValidity = isSafeList(eachList, length-1);
         if (listValidity) {
-            // printArray(eachList, length-1);
             return 1;
         }
     }
