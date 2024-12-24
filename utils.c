@@ -126,7 +126,7 @@ mulStruct *makeMulStruct(char *string, int length) {
     structLists = (mulStruct *)malloc(length * sizeof(mulStruct));
 
     int iterator = 0;
-    int mulStructIterator = 0;
+    int mulStructIterator = 1;
     while (iterator < length-3) {
         char *slicedString = slice(string, iterator, iterator+4);
         int isMul = !strcmp("mul(", slicedString);
@@ -146,6 +146,13 @@ mulStruct *makeMulStruct(char *string, int length) {
         }
         iterator++;
     }
+    mulStruct m;
+    int strLength = snprintf( NULL, 0, "%d", mulStructIterator);
+    char* str = malloc(strLength + 1 );
+    snprintf( str, strLength + 1, "%d", mulStructIterator);
+    m.left = "NUMSTRUCTS";
+    m.right = str;
+    structLists[0] = m;
     return structLists;
 }
     

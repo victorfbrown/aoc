@@ -251,8 +251,9 @@ int aoc3(input2Struct input3) {
     int length = input3.length;
     for (int i = 0; i < length; i++) {
         int newLength = strlen(inputStrings[i]);
-        // printf("%d\n", newLength);
-        makeMulStruct(inputStrings[i], newLength);
+        mulStruct *eachMulStructList = makeMulStruct(inputStrings[i], newLength);
+        mulStruct firstMulStruct = eachMulStructList[0];
+        printf("%s: %s\n", firstMulStruct.left, firstMulStruct.right);
     }
     return 0;
 
