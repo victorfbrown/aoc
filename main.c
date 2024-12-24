@@ -213,6 +213,52 @@ int aoc2_2(input2Struct input2) {
     return safeReports;
 }
 
+//DAY 3
+
+input2Struct makeInput3 () {
+    FILE *file1;
+    FILE *file2;
+    char buffer[3500];
+    file1 = fopen("inputs/3.txt", "r");
+    file2 = fopen("inputs/3.txt", "r");
+    if (file1 == NULL || file2 == NULL) {
+        printf("Error opening file\n");
+        exit(1);
+    }
+
+    int fileLength = 0;
+    while (fgets(buffer, 3500, file1) != NULL) { fileLength++; }
+    char **list;
+    list = (char **)malloc(fileLength * sizeof(char *));
+    for (int i = 0; i < fileLength; i++) {
+        list[i] = (char *)malloc(3500 * sizeof(char));
+    }
+
+    char *delimiter = " ";
+    int row = 0;
+    while (fgets(buffer, 3500, file2) != NULL) {
+        strcpy(list[row], buffer);
+        row++;
+    }
+    input2Struct ret;
+    ret.inputStrings = list;
+    ret.length = fileLength;
+    return ret;
+}
+
+int aoc3(input2Struct input3) {
+    char **inputStrings = input3.inputStrings;
+    int length = input3.length;
+    for (int i = 0; i < length; i++) {
+        int newLength = strlen(inputStrings[i]);
+        // printf("%d\n", newLength);
+        makeMulStruct(inputStrings[i], newLength);
+    }
+    return 0;
+
+
+}
+
 int main()
 {
     //DAY 1.1
@@ -233,5 +279,10 @@ int main()
     int aoc2_2_output = aoc2_2(input2);
     printf("The answer to Day 2.2 is: %d\n", aoc2_2_output);
 
+
+    //DAY 3.3
+    input2Struct input3 = makeInput3();
+    // printf("%s\n", input3.inputStrings[0]);
+    int a = aoc3(input3);
     return 0;
 }

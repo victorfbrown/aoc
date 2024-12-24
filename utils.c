@@ -112,3 +112,54 @@ void printArray(int *arr, int length) {
     printf("]\n");
     return;
 }
+
+char *slice(const char* str, size_t start, size_t end) {
+    char *string;
+    string = (char *)malloc(end-start * sizeof(char));
+    strncpy(string, str + start, end - start);
+    return string;
+}
+
+
+mulStruct *makeMulStruct(char *string, int length) {
+    mulStruct *structLists;
+    structLists = (mulStruct *)malloc(length * sizeof(mulStruct));
+
+    int iterator = 0;
+    int mulStructIterator = 0;
+    while (iterator < length-3) {
+        char *slicedString = slice(string, iterator, iterator+4);
+        int isMul = !strcmp("mul(", slicedString);
+        if (isMul) {
+            // printf("%d: %s\n", iterator, slicedString);
+            char *firstArg;
+            char *secondArg;
+            firstArg = strtok(slice(string, iterator+4, strlen(string)), ",");
+            secondArg = strtok(NULL, ")");
+            // printf("%s\n", firstArg);
+            // printf("%s\n", secondArg);
+            mulStruct m;
+            m.left = firstArg;
+            m.right = secondArg;
+            structLists[mulStructIterator] = m;
+            mulStructIterator++;
+        }
+        iterator++;
+    }
+    return structLists;
+}
+    
+    
+    // for (int i = 0; i<length; i++) {
+    //     char currStr[3] = "\0";
+    //     currStr[0] = '1';
+    //     currStr[1] = string[i];
+    //     int currNum = atoi(currStr);
+    //     currNum -= 10;
+    //     if (currNum > 0) {
+    //         printf("%d\n", currNum);
+    //     }
+
+
+        // printf("%s\n", currStr);
+        // return structLists;
