@@ -130,6 +130,7 @@ mulStruct *makeMulStruct(char *string, int length) {
     while (iterator < length-3) {
         char *slicedString = slice(string, iterator, iterator+4);
         int isMul = !strcmp("mul(", slicedString);
+        // printf("%d\n", iterator);
         if (isMul) {
             // printf("%d: %s\n", iterator, slicedString);
             char *firstArg;

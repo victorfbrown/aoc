@@ -247,15 +247,24 @@ input2Struct makeInput3 () {
 }
 
 int aoc3(input2Struct input3) {
+    int total = 0;
     char **inputStrings = input3.inputStrings;
     int length = input3.length;
     for (int i = 0; i < length; i++) {
         int newLength = strlen(inputStrings[i]);
         mulStruct *eachMulStructList = makeMulStruct(inputStrings[i], newLength);
         mulStruct firstMulStruct = eachMulStructList[0];
-        printf("%s: %s\n", firstMulStruct.left, firstMulStruct.right);
+        int numMulStructs = atoi(firstMulStruct.right);
+        for (int j = 1; j < numMulStructs; j++) {
+            mulStruct eachMulStruct = eachMulStructList[j];
+            int left = atoi(eachMulStruct.left);
+            int right = atoi(eachMulStruct.right);
+            printf("%d x %d = %d\n", left, right, left*right);
+            total += (left * right);
+        }
+        // printf("%s: %d\n", firstMulStruct.left, numMulStructs);
     }
-    return 0;
+    return total;
 
 
 }
@@ -284,6 +293,20 @@ int main()
     //DAY 3.3
     input2Struct input3 = makeInput3();
     // printf("%s\n", input3.inputStrings[0]);
-    int a = aoc3(input3);
+    int aoc3_1_output = aoc3(input3);
+    printf("The answer to Day 3.1 is: %d\n", aoc3_1_output);
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     return 0;
 }
