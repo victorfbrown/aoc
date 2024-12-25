@@ -2,6 +2,7 @@
 #define UTILS_H
 
 typedef struct {
+    int isValid;
     char *left;
     char *right;
 } mulStruct;
