@@ -17,5 +17,6 @@ int isSafeList(int *list, int length);
 void printArray(int *arr, int length);
 mulStruct *makeMulStruct(char *string, int length);
 char *slice(const char* str, size_t start, size_t end);
+int isNumber(char *str);
 
 #endif

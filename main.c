@@ -255,14 +255,18 @@ int aoc3(input2Struct input3) {
         mulStruct *eachMulStructList = makeMulStruct(inputStrings[i], newLength);
         mulStruct firstMulStruct = eachMulStructList[0];
         int numMulStructs = atoi(firstMulStruct.right);
+        
         for (int j = 1; j < numMulStructs; j++) {
             mulStruct eachMulStruct = eachMulStructList[j];
-            int left = atoi(eachMulStruct.left);
-            int right = atoi(eachMulStruct.right);
-            printf("%d x %d = %d\n", left, right, left*right);
+            char *leftStr = eachMulStruct.left;
+            char *rightStr = eachMulStruct.right;
+            int left = atoi(leftStr);
+            int right = atoi(rightStr);
+            if (!isNumber(leftStr) || !isNumber(rightStr)) {
+                continue;
+            }
             total += (left * right);
         }
-        // printf("%s: %d\n", firstMulStruct.left, numMulStructs);
     }
     return total;
 

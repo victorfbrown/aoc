@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utils.h"
+#include <ctype.h>
 
 int max(int *list, int length) {
     int maxVal = list[0];
@@ -156,18 +157,13 @@ mulStruct *makeMulStruct(char *string, int length) {
     structLists[0] = m;
     return structLists;
 }
-    
-    
-    // for (int i = 0; i<length; i++) {
-    //     char currStr[3] = "\0";
-    //     currStr[0] = '1';
-    //     currStr[1] = string[i];
-    //     int currNum = atoi(currStr);
-    //     currNum -= 10;
-    //     if (currNum > 0) {
-    //         printf("%d\n", currNum);
-    //     }
 
-
-        // printf("%s\n", currStr);
-        // return structLists;
+int isNumber(char *str) {
+    int length = strlen(str);
+    for (int i = 0; i < length; i++) {
+        if (!isdigit(str[i])) {
+            return 0;
+        }
+    }
+    return 1;
+}
