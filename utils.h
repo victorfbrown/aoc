@@ -16,7 +16,7 @@ int **makeRemove1List(int *list, int length);
 int isSafeDamperList (int *list, int length);
 int isSafeList(int *list, int length);
 void printArray(int *arr, int length);
-mulStruct *makeMulStruct(char *string, int length);
+mulStruct *makeMulStruct(char *string, int length, int isValid);
 char *slice(const char* str, size_t start, size_t end);
 int isNumber(char *str);
 

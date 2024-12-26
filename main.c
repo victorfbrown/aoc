@@ -250,41 +250,35 @@ int aoc3(input2Struct input3, int day) {
     int total = 0;
     char **inputStrings = input3.inputStrings;
     int length = input3.length;
+    int isValid = 1;
     for (int i = 0; i < length; i++) {
         int newLength = strlen(inputStrings[i]);
-        mulStruct *eachMulStructList = makeMulStruct(inputStrings[i], newLength);
+        mulStruct *eachMulStructList = makeMulStruct(inputStrings[i], newLength, isValid);
         mulStruct firstMulStruct = eachMulStructList[0];
         int numMulStructs = atoi(firstMulStruct.right);
         
         for (int j = 1; j < numMulStructs; j++) {
-            // printf("%d\n", total);
             mulStruct eachMulStruct = eachMulStructList[j];
             char *leftStr = eachMulStruct.left;
             char *rightStr = eachMulStruct.right;
             int left = atoi(leftStr);
             int right = atoi(rightStr);
-            int isValid = eachMulStruct.isValid;
-            // printf("%d, %s, %s\n", isValid, leftStr, rightStr);
-            if (!isNumber(leftStr) || !isNumber(rightStr)) {
-                // printf("%d\n", ((day == 2) && !isValid));
-                continue;
-            }
-            if ((day == 2) && !isValid) {
-                // printf("skip: %d\n", ((day == 2) && !isValid));
+            isValid = eachMulStruct.isValid;
+            if (!isNumber(leftStr) || !isNumber(rightStr) || (day == 2) && !isValid) {
                 continue;
             }
             total += (left * right);
-            // printf("%d\n", total);
         }
     }
     return total;
 }
 
+//DAY 3.1
 int aoc3_1(input2Struct input3) {
     return aoc3(input3, 1);
 }
 
-
+//DAY 3.2
 int aoc3_2(input2Struct input3) {
     return aoc3(input3, 2);
 }
@@ -317,10 +311,7 @@ int main()
 
     //DAY 3.2
     int aoc3_2_output = aoc3_2(input3);
-    printf("The answer to Day 3.2 is: %d\n", aoc3_2_output);
-    // printf("%s\n", slice("don't()", 0, 7));
-    
-    
+    printf("The answer to Day 3.2 is: %d\n", aoc3_2_output);    
     
     
     
