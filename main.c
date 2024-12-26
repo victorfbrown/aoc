@@ -126,40 +126,43 @@ int aoc1_2(input1Struct input1) {
 typedef struct {
     char **inputStrings;
     int length;
-} input2Struct;
+} inputStrStruct;
 
-input2Struct makeInput2() {
-    FILE *file1;
+inputStrStruct makeStrInputs(char *filename) {
+        FILE *file1;
     FILE *file2;
-    char buffer[255];
-    file1 = fopen("inputs/2.txt", "r");
-    file2 = fopen("inputs/2.txt", "r");
+    char buffer[3500];
+    file1 = fopen(filename, "r");
+    file2 = fopen(filename, "r");
     if (file1 == NULL || file2 == NULL) {
         printf("Error opening file\n");
         exit(1);
     }
 
     int fileLength = 0;
-    while (fgets(buffer, 255, file1) != NULL) { fileLength++; }
+    while (fgets(buffer, 3500, file1) != NULL) { fileLength++; }
     char **list;
     list = (char **)malloc(fileLength * sizeof(char *));
     for (int i = 0; i < fileLength; i++) {
-        list[i] = (char *)malloc(300 * sizeof(char));
+        list[i] = (char *)malloc(3500 * sizeof(char));
     }
 
-    char *delimiter = " ";
     int row = 0;
-    while (fgets(buffer, 255, file2) != NULL) {
+    while (fgets(buffer, 3500, file2) != NULL) {
         strcpy(list[row], buffer);
         row++;
     }
-    input2Struct ret;
+    inputStrStruct ret;
     ret.inputStrings = list;
     ret.length = fileLength;
     return ret;
 }
 
-int aoc2_1(input2Struct input2) {
+inputStrStruct makeInput2() {
+    return makeStrInputs("inputs/2.txt");
+}
+
+int aoc2_1(inputStrStruct input2) {
     char **inputStrings = input2.inputStrings;
     int length = input2.length;
     int safeReports = 0;
@@ -186,7 +189,7 @@ int aoc2_1(input2Struct input2) {
     return safeReports;
 }
 
-int aoc2_2(input2Struct input2) {
+int aoc2_2(inputStrStruct input2) {
     char **inputStrings = input2.inputStrings;
     int length = input2.length;
     int safeReports = 0;
@@ -215,38 +218,11 @@ int aoc2_2(input2Struct input2) {
 
 //DAY 3
 
-input2Struct makeInput3 () {
-    FILE *file1;
-    FILE *file2;
-    char buffer[3500];
-    file1 = fopen("inputs/3.txt", "r");
-    file2 = fopen("inputs/3.txt", "r");
-    if (file1 == NULL || file2 == NULL) {
-        printf("Error opening file\n");
-        exit(1);
-    }
-
-    int fileLength = 0;
-    while (fgets(buffer, 3500, file1) != NULL) { fileLength++; }
-    char **list;
-    list = (char **)malloc(fileLength * sizeof(char *));
-    for (int i = 0; i < fileLength; i++) {
-        list[i] = (char *)malloc(3500 * sizeof(char));
-    }
-
-    char *delimiter = " ";
-    int row = 0;
-    while (fgets(buffer, 3500, file2) != NULL) {
-        strcpy(list[row], buffer);
-        row++;
-    }
-    input2Struct ret;
-    ret.inputStrings = list;
-    ret.length = fileLength;
-    return ret;
+inputStrStruct makeInput3 () {
+    return makeStrInputs("inputs/3.txt");
 }
 
-int aoc3(input2Struct input3, int day) {
+int aoc3(inputStrStruct input3, int day) {
     int total = 0;
     char **inputStrings = input3.inputStrings;
     int length = input3.length;
@@ -274,14 +250,22 @@ int aoc3(input2Struct input3, int day) {
 }
 
 //DAY 3.1
-int aoc3_1(input2Struct input3) {
+int aoc3_1(inputStrStruct input3) {
     return aoc3(input3, 1);
 }
 
 //DAY 3.2
-int aoc3_2(input2Struct input3) {
+int aoc3_2(inputStrStruct input3) {
     return aoc3(input3, 2);
 }
+
+//DAY 4
+
+inputStrStruct makeInput4() {
+    inputStrStruct m;
+    return m;
+}
+
 
 int main()
 {
@@ -295,7 +279,7 @@ int main()
     printf("The answer to Day 1.2 is: %d\n", aoc1_2_output);
 
     //DAY 2.1
-    input2Struct input2 = makeInput2();
+    inputStrStruct input2 = makeInput2();
     int aoc2_1_output = aoc2_1(input2);
     printf("The answer to Day 2.1 is: %d\n", aoc2_1_output);
 
@@ -305,7 +289,7 @@ int main()
 
 
     //DAY 3.1
-    input2Struct input3 = makeInput3();
+    inputStrStruct input3 = makeInput3();
     int aoc3_1_output = aoc3_1(input3);
     printf("The answer to Day 3.1 is: %d\n", aoc3_1_output);
 

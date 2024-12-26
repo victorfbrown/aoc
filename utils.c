@@ -58,7 +58,6 @@ int **makeRemove1List(int *list, int length)
     {
         newList[i] = (int *)malloc(length * sizeof(int));
         int shiftLeft = 0;
-        // printf("[");
         for (int j = 0; j < length; j++)
         {
             int skipThis = 0;
@@ -67,10 +66,8 @@ int **makeRemove1List(int *list, int length)
                 shiftLeft = -1;
                 continue;
             }
-            // printf("%d ", list[j]);
             newList[i][j + shiftLeft] = list[j];
         }
-        // printf("]\n");
     }
 
     return newList;
