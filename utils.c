@@ -129,25 +129,26 @@ mulStruct *makeMulStruct(char *string, int length) {
 
     int iterator = 0;
     int mulStructIterator = 1;
-    while (iterator < length-3) {
+    while (iterator < length-6) {
         char *multOrDoSlicedString = slice(string, iterator, iterator+4);
         char *dontString = slice(string, iterator, iterator+7);
 
         int isMul = !strcmp("mul(", multOrDoSlicedString);
-        if (!strcmp(multOrDoSlicedString, "do()")) {
+        int isDo = !strcmp("do()", multOrDoSlicedString);
+        int isDont = !strcmp("don't()", dontString);
+
+        if (isDo) {
             isValid = 1;
-        } else if (!strcmp(dontString, "don't()")) {
+        }
+        if (isDont) {
             isValid = 0;
         }
-        // printf("%d\n", iterator);
+
         if (isMul) {
-            // printf("%d: %s\n", iterator, multOrDoSlicedString);
             char *firstArg;
             char *secondArg;
             firstArg = strtok(slice(string, iterator+4, strlen(string)), ",");
             secondArg = strtok(NULL, ")");
-            // printf("%s\n", firstArg);
-            // printf("%s\n", secondArg);
             mulStruct m;
             m.isValid = isValid;
             m.left = firstArg;
@@ -159,8 +160,8 @@ mulStruct *makeMulStruct(char *string, int length) {
     }
     mulStruct m;
     int strLength = snprintf( NULL, 0, "%d", mulStructIterator);
-    char* str = malloc(strLength + 1 );
-    snprintf( str, strLength + 1, "%d", mulStructIterator);
+    char* str = malloc(strLength + 1);
+    snprintf(str, strLength + 1, "%d", mulStructIterator);
     m.isValid = 0;
     m.left = "NUMSTRUCTS";
     m.right = str;

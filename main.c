@@ -246,7 +246,7 @@ input2Struct makeInput3 () {
     return ret;
 }
 
-int aoc3_1(input2Struct input3) {
+int aoc3(input2Struct input3, int day) {
     int total = 0;
     char **inputStrings = input3.inputStrings;
     int length = input3.length;
@@ -257,20 +257,36 @@ int aoc3_1(input2Struct input3) {
         int numMulStructs = atoi(firstMulStruct.right);
         
         for (int j = 1; j < numMulStructs; j++) {
+            // printf("%d\n", total);
             mulStruct eachMulStruct = eachMulStructList[j];
             char *leftStr = eachMulStruct.left;
             char *rightStr = eachMulStruct.right;
             int left = atoi(leftStr);
             int right = atoi(rightStr);
+            int isValid = eachMulStruct.isValid;
+            // printf("%d, %s, %s\n", isValid, leftStr, rightStr);
             if (!isNumber(leftStr) || !isNumber(rightStr)) {
+                // printf("%d\n", ((day == 2) && !isValid));
+                continue;
+            }
+            if ((day == 2) && !isValid) {
+                // printf("skip: %d\n", ((day == 2) && !isValid));
                 continue;
             }
             total += (left * right);
+            // printf("%d\n", total);
         }
     }
     return total;
+}
+
+int aoc3_1(input2Struct input3) {
+    return aoc3(input3, 1);
+}
 
 
+int aoc3_2(input2Struct input3) {
+    return aoc3(input3, 2);
 }
 
 int main()
@@ -294,12 +310,15 @@ int main()
     printf("The answer to Day 2.2 is: %d\n", aoc2_2_output);
 
 
-    //DAY 3.3
+    //DAY 3.1
     input2Struct input3 = makeInput3();
-    // printf("%s\n", input3.inputStrings[0]);
     int aoc3_1_output = aoc3_1(input3);
     printf("The answer to Day 3.1 is: %d\n", aoc3_1_output);
 
+    //DAY 3.2
+    int aoc3_2_output = aoc3_2(input3);
+    printf("The answer to Day 3.2 is: %d\n", aoc3_2_output);
+    // printf("%s\n", slice("don't()", 0, 7));
     
     
     
