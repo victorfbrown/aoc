@@ -128,7 +128,7 @@ typedef struct {
     int length;
 } inputStrStruct;
 
-inputStrStruct makeStrInputs(char *filename) {
+inputStrStruct makeStrInputsStruct(char *filename) {
         FILE *file1;
     FILE *file2;
     char buffer[3500];
@@ -156,10 +156,6 @@ inputStrStruct makeStrInputs(char *filename) {
     ret.inputStrings = list;
     ret.length = fileLength;
     return ret;
-}
-
-inputStrStruct makeInput2() {
-    return makeStrInputs("inputs/2.txt");
 }
 
 int aoc2_1(inputStrStruct input2) {
@@ -218,10 +214,6 @@ int aoc2_2(inputStrStruct input2) {
 
 //DAY 3
 
-inputStrStruct makeInput3 () {
-    return makeStrInputs("inputs/3.txt");
-}
-
 int aoc3(inputStrStruct input3, int day) {
     int total = 0;
     char **inputStrings = input3.inputStrings;
@@ -261,11 +253,6 @@ int aoc3_2(inputStrStruct input3) {
 
 //DAY 4
 
-inputStrStruct makeInput4() {
-    inputStrStruct m;
-    return m;
-}
-
 
 int main()
 {
@@ -279,7 +266,7 @@ int main()
     printf("The answer to Day 1.2 is: %d\n", aoc1_2_output);
 
     //DAY 2.1
-    inputStrStruct input2 = makeInput2();
+    inputStrStruct input2 = makeStrInputsStruct("inputs/2.txt");
     int aoc2_1_output = aoc2_1(input2);
     printf("The answer to Day 2.1 is: %d\n", aoc2_1_output);
 
@@ -289,7 +276,7 @@ int main()
 
 
     //DAY 3.1
-    inputStrStruct input3 = makeInput3();
+    inputStrStruct input3 = makeStrInputsStruct("inputs/3.txt");
     int aoc3_1_output = aoc3_1(input3);
     printf("The answer to Day 3.1 is: %d\n", aoc3_1_output);
 
@@ -298,8 +285,8 @@ int main()
     printf("The answer to Day 3.2 is: %d\n", aoc3_2_output);    
     
     
-    
-    
+    //DAY 4.1
+    inputStrStruct input4 = makeStrInputsStruct("inputs/4.txt");    
     
     
     
