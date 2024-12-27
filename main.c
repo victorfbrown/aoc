@@ -253,6 +253,36 @@ int aoc3_2(inputStrStruct input3) {
 
 //DAY 4
 
+int aoc4_1(inputStrStruct input4) {
+    char **inputStrings = input4.inputStrings;
+    int rows = input4.length;
+    int cols = strlen(inputStrings[0]);
+    int xmasCount = 0;
+
+    for (int row = 0; row < rows; row++) {
+        char *eachRow = inputStrings[row];
+        // printf("%s\n", eachRow);
+        for (int col = 0; col < cols; col++) {
+            char *leftToRight = "INVALID";
+            char *rightToLeft = "INVALID";
+            char *topDown = "INVALID";
+            char *bottomUp = "INVALID";
+            char *TLtoBR = "INVALID";
+            char *BRtoTL = "INVALID";
+            char *TRtoBL = "INVALID";
+            char *BLtoTR = "INVALID";
+            if (col < cols-4) {
+                leftToRight = slice(eachRow, col, col+4);
+            }
+
+            if (col > 3) {
+
+            }
+        }
+    }
+    return 0;
+}
+
 
 int main()
 {
@@ -287,10 +317,7 @@ int main()
     
     //DAY 4.1
     inputStrStruct input4 = makeStrInputsStruct("inputs/4.txt");    
-    
-    
-    
-    
+    int aoc4_output = aoc4_1(input4);
     
     
     return 0;

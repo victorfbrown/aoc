@@ -19,5 +19,6 @@ void printArray(int *arr, int length);
 mulStruct *makeMulStruct(char *string, int length, int isValid);
 char *slice(const char* str, size_t start, size_t end);
 int isNumber(char *str);
+char *reverse(char *str);
 
 #endif

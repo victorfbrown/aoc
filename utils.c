@@ -208,3 +208,13 @@ int isNumber(char *str)
     }
     return 1;
 }
+
+char *reverse(char *str) {
+    int length = strlen(str);
+    char *reverseStr;
+    reverseStr = (char *)malloc(length * sizeof(char));
+    for (int i = 0; i < length; i++) {
+        reverseStr[i] = str[length-1-i];
+    }
+    return reverseStr;
+}
