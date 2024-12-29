@@ -129,7 +129,7 @@ typedef struct {
 } inputStrStruct;
 
 inputStrStruct makeStrInputsStruct(char *filename) {
-        FILE *file1;
+    FILE *file1;
     FILE *file2;
     char buffer[3500];
     file1 = fopen(filename, "r");
@@ -140,6 +140,7 @@ inputStrStruct makeStrInputsStruct(char *filename) {
     }
 
     int fileLength = 0;
+
     while (fgets(buffer, 3500, file1) != NULL) { fileLength++; }
     char **list;
     list = (char **)malloc(fileLength * sizeof(char *));
@@ -256,31 +257,86 @@ int aoc3_2(inputStrStruct input3) {
 int aoc4_1(inputStrStruct input4) {
     char **inputStrings = input4.inputStrings;
     int rows = input4.length;
-    int cols = strlen(inputStrings[0]);
+    int cols = strlen(inputStrings[0])-1; //Removes 1 for the newline character
     int xmasCount = 0;
+    // printf("%d, %d\n", rows, cols);
+    // printf("%s", inputStrings[0]);
 
     for (int row = 0; row < rows; row++) {
         char *eachRow = inputStrings[row];
-        // printf("%s\n", eachRow);
         for (int col = 0; col < cols; col++) {
             char *leftToRight = "INVALID";
-            char *rightToLeft = "INVALID";
             char *topDown = "INVALID";
-            char *bottomUp = "INVALID";
             char *TLtoBR = "INVALID";
-            char *BRtoTL = "INVALID";
             char *TRtoBL = "INVALID";
+
+
+
+            char *rightToLeft = "INVALID";
+            char *bottomUp = "INVALID";
+            char *BRtoTL = "INVALID";
             char *BLtoTR = "INVALID";
-            if (col < cols-4) {
-                leftToRight = slice(eachRow, col, col+4);
+
+            //TOP TO BOTTOM
+
+            if (row >= 3) {
+                int bottomUpList[8] = {row, col, row-1, col, row-2, col, row-3, col};
+                bottomUp = selectIndices(inputStrings, bottomUpList);
             }
 
-            if (col > 3) {
-
+            //LEFT TO RIGHT
+            
+            if (col < cols-3) {
+                int leftToRightList[8] = {row, col, row, col+1, row, col+2, row, col+3};
+                leftToRight = selectIndices(inputStrings, leftToRightList);
             }
+            if (col < cols-3 && row < rows-3) {
+                int TLtoBRList[8] = {row, col, row+1, col+1, row+2, col+2, row+3, col+3};
+                TLtoBR = selectIndices(inputStrings, TLtoBRList);
+            }
+            if (col < cols-3 && row >= 3) {
+                int BLtoTRList[8] = {row, col, row-1, col+1, row-2, col+2, row-3, col+3};
+                BLtoTR = selectIndices(inputStrings, BLtoTRList);
+            }
+
+            //BOTTOM TO TOP
+
+            if (row < rows-3) {
+                int topDownList[8] = {row, col, row+1, col, row+2, col, row+3, col};
+                topDown = selectIndices(inputStrings, topDownList);
+            }
+
+            //RIGHT TO LEFT
+
+            if (col >= 3) {
+                int rightToLeftList[8] = {row, col, row, col-1, row, col-2, row, col-3};
+                rightToLeft = selectIndices(inputStrings, rightToLeftList);
+            }
+            if (col >= 3 && row < rows-3) {
+                int TRtoBLList[8] = {row, col, row+1, col-1, row+2, col-2, row+3, col-3};
+                TRtoBL = selectIndices(inputStrings, TRtoBLList);
+            }
+            if (col >= 3 && row >= 3) {
+                int BRtoTLList[8] = {row, col, row-1, col-1, row-2, col-2, row-3, col-3};
+                BRtoTL = selectIndices(inputStrings, BRtoTLList);
+            }
+
+
+
+            char *cmpList[8] = {leftToRight, topDown, TLtoBR, TRtoBL, rightToLeft, bottomUp, BRtoTL, BLtoTR};
+
+            int isXmas = 0;
+            for (int k = 0; k<8; k++) {
+                char *currStr = cmpList[k];
+                isXmas += !strcmp(currStr, "XMAS");
+            }
+
+            
+            xmasCount += isXmas;
+
         }
     }
-    return 0;
+    return xmasCount;
 }
 
 
@@ -317,7 +373,9 @@ int main()
     
     //DAY 4.1
     inputStrStruct input4 = makeStrInputsStruct("inputs/4.txt");    
-    int aoc4_output = aoc4_1(input4);
+    int aoc4_1_output = aoc4_1(input4);
+
+    printf("The answer to Day 4.1 is %d\n", aoc4_1_output);
     
     
     return 0;

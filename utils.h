@@ -15,10 +15,12 @@ char* copyString(char *toCopy, int length);
 int **makeRemove1List(int *list, int length);
 int isSafeDamperList (int *list, int length);
 int isSafeList(int *list, int length);
-void printArray(int *arr, int length);
+void printIntArray(int *arr, int length);
+void printCharArray(char *arr, int length);
 mulStruct *makeMulStruct(char *string, int length, int isValid);
 char *slice(const char* str, size_t start, size_t end);
 int isNumber(char *str);
 char *reverse(char *str);
+char *selectIndices(char **stringList, int *indicesLength);
 
 #endif

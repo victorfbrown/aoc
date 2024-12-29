@@ -121,12 +121,27 @@ int isSafeDamperList(int *list, int length)
     return 0;
 }
 
-void printArray(int *arr, int length)
+void printIntArray(int *arr, int length)
 {
     printf("[");
     for (int i = 0; i < length; i++)
     {
         printf("%d", arr[i]);
+        if (i != length - 1)
+        {
+            printf(", ");
+        }
+    }
+    printf("]\n");
+    return;
+}
+
+void printCharArray(char *arr, int length)
+{
+    printf("[");
+    for (int i = 0; i < length; i++)
+    {
+        printf("%c", arr[i]);
         if (i != length - 1)
         {
             printf(", ");
@@ -217,4 +232,30 @@ char *reverse(char *str) {
         reverseStr[i] = str[length-1-i];
     }
     return reverseStr;
+}
+
+char *selectIndices(char **stringList, int *indicesLength) {
+    int a = indicesLength[0];
+    int b = indicesLength[1];
+    int c = indicesLength[2];
+    int d = indicesLength[3];
+    int e = indicesLength[4];
+    int f = indicesLength[5];
+    int g = indicesLength[6];
+    int h = indicesLength[7];
+
+    char first = stringList[a][b];
+    char second = stringList[c][d];
+    char third = stringList[e][f];
+    char fourth = stringList[g][h];
+
+    char *str;
+    str = (char *)malloc(5 * sizeof(char));
+    str[0] = first;
+    str[1] = second;
+    str[2] = third;
+    str[3] = fourth;
+    str[4] = '\0';
+
+    return str;
 }
