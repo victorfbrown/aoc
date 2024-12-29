@@ -269,9 +269,6 @@ int aoc4_1(inputStrStruct input4) {
             char *topDown = "INVALID";
             char *TLtoBR = "INVALID";
             char *TRtoBL = "INVALID";
-
-
-
             char *rightToLeft = "INVALID";
             char *bottomUp = "INVALID";
             char *BRtoTL = "INVALID";
@@ -281,47 +278,45 @@ int aoc4_1(inputStrStruct input4) {
 
             if (row >= 3) {
                 int bottomUpList[8] = {row, col, row-1, col, row-2, col, row-3, col};
-                bottomUp = selectIndices(inputStrings, bottomUpList);
+                bottomUp = selectIndices(inputStrings, bottomUpList, 8);
             }
 
             //LEFT TO RIGHT
             
             if (col < cols-3) {
                 int leftToRightList[8] = {row, col, row, col+1, row, col+2, row, col+3};
-                leftToRight = selectIndices(inputStrings, leftToRightList);
+                leftToRight = selectIndices(inputStrings, leftToRightList, 8);
             }
             if (col < cols-3 && row < rows-3) {
                 int TLtoBRList[8] = {row, col, row+1, col+1, row+2, col+2, row+3, col+3};
-                TLtoBR = selectIndices(inputStrings, TLtoBRList);
+                TLtoBR = selectIndices(inputStrings, TLtoBRList, 8);
             }
             if (col < cols-3 && row >= 3) {
                 int BLtoTRList[8] = {row, col, row-1, col+1, row-2, col+2, row-3, col+3};
-                BLtoTR = selectIndices(inputStrings, BLtoTRList);
+                BLtoTR = selectIndices(inputStrings, BLtoTRList, 8);
             }
 
             //BOTTOM TO TOP
 
             if (row < rows-3) {
                 int topDownList[8] = {row, col, row+1, col, row+2, col, row+3, col};
-                topDown = selectIndices(inputStrings, topDownList);
+                topDown = selectIndices(inputStrings, topDownList, 8);
             }
 
             //RIGHT TO LEFT
 
             if (col >= 3) {
                 int rightToLeftList[8] = {row, col, row, col-1, row, col-2, row, col-3};
-                rightToLeft = selectIndices(inputStrings, rightToLeftList);
+                rightToLeft = selectIndices(inputStrings, rightToLeftList, 8);
             }
             if (col >= 3 && row < rows-3) {
                 int TRtoBLList[8] = {row, col, row+1, col-1, row+2, col-2, row+3, col-3};
-                TRtoBL = selectIndices(inputStrings, TRtoBLList);
+                TRtoBL = selectIndices(inputStrings, TRtoBLList, 8);
             }
             if (col >= 3 && row >= 3) {
                 int BRtoTLList[8] = {row, col, row-1, col-1, row-2, col-2, row-3, col-3};
-                BRtoTL = selectIndices(inputStrings, BRtoTLList);
+                BRtoTL = selectIndices(inputStrings, BRtoTLList, 8);
             }
-
-
 
             char *cmpList[8] = {leftToRight, topDown, TLtoBR, TRtoBL, rightToLeft, bottomUp, BRtoTL, BLtoTR};
 
@@ -330,7 +325,6 @@ int aoc4_1(inputStrStruct input4) {
                 char *currStr = cmpList[k];
                 isXmas += !strcmp(currStr, "XMAS");
             }
-
             
             xmasCount += isXmas;
 

@@ -21,6 +21,6 @@ mulStruct *makeMulStruct(char *string, int length, int isValid);
 char *slice(const char* str, size_t start, size_t end);
 int isNumber(char *str);
 char *reverse(char *str);
-char *selectIndices(char **stringList, int *indicesLength);
+char *selectIndices(char **stringList, int *indicesList, int length);
 
 #endif

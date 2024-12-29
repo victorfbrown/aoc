@@ -234,15 +234,15 @@ char *reverse(char *str) {
     return reverseStr;
 }
 
-char *selectIndices(char **stringList, int *indicesLength) {
-    int a = indicesLength[0];
-    int b = indicesLength[1];
-    int c = indicesLength[2];
-    int d = indicesLength[3];
-    int e = indicesLength[4];
-    int f = indicesLength[5];
-    int g = indicesLength[6];
-    int h = indicesLength[7];
+char *selectIndices(char **stringList, int *indicesList, int length) {
+    int a = indicesList[0];
+    int b = indicesList[1];
+    int c = indicesList[2];
+    int d = indicesList[3];
+    int e = indicesList[4];
+    int f = indicesList[5];
+    int g = indicesList[6];
+    int h = indicesList[7];
 
     char first = stringList[a][b];
     char second = stringList[c][d];
