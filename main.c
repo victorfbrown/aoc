@@ -45,13 +45,11 @@ input1Struct makeInput1()
         {
             int number = atoi(eachNum);
             list[row][col] = number;
-            // printf("[%d, %d]: %d\n", row, col, number);
             col++;
             eachNum = strtok(NULL, delimiter);
         }
         row++;
     }
-    // printf("%lu", sizeof(list)/sizeof(list[0]));
     input1Struct ret;
     ret.inputList = list;
     ret.length = fileLength;
@@ -81,11 +79,7 @@ int aoc1_1(input1Struct input1)
         int leftVal = list1[i];
         int rightVal = list2[i];
 
-        int difference = leftVal - rightVal;
-        if (difference < 0)
-        {
-            difference *= -1;
-        }
+        int difference = abs(leftVal - rightVal);
 
         total += difference;
     }
